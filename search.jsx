@@ -1,5 +1,7 @@
 'use strict';
 
+var searchUrl = 'http://hambarsearch.laforge.grep.ro/query';
+
 class SearchResults extends React.Component {
   render() {
     return "hello world";
@@ -19,7 +21,9 @@ class Search extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     var q = React.findDOMNode(this.refs.q).value;
-    console.log(q);
+    $.getJSON(searchUrl, {q: q}, function(resp) {
+      console.log(resp);
+    }.bind(this));
   }
 }
 
