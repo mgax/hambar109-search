@@ -4,7 +4,7 @@ var searchUrl = 'http://hambarsearch.laforge.grep.ro/query';
 var bucketUrl = 'https://mgax-mof.s3.amazonaws.com/';
 
 // Stackoverflow4life
-var queryString = function () {
+var queryString = (function () {
   var query_string = {};
   var query = window.location.search.substring(1);
   var vars = query.split("&");
@@ -23,7 +23,7 @@ var queryString = function () {
     }
   }
   return query_string;
-}();
+})();
 
 var search = function(q, callback) {
   $.ajax({
