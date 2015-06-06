@@ -27,7 +27,7 @@ class SearchResults extends React.Component {
             </a>
             <ul>
             {hit.highlight.text.map(function(hi) {
-              return <li dangerouslySetInnerHTML={{__html: hi}} />
+              return <li className="highlight" dangerouslySetInnerHTML={{__html: hi}} />
             })}
             </ul>
           </li>
@@ -53,9 +53,11 @@ class Search extends React.Component {
     }
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type="search" ref="q" />
-          <button type="submit">search</button>
+        <form onSubmit={this.handleSubmit.bind(this)} className="form-inline">
+          <div className="form-group">
+            <input type="search" className="form-control" ref="q" />
+          </div>
+          <button type="submit" className="btn btn-default">search</button>
         </form>
         {results}
       </div>
