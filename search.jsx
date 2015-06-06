@@ -1,6 +1,7 @@
 'use strict';
 
 var searchUrl = 'http://hambarsearch.laforge.grep.ro/query';
+var bucketUrl = 'https://mgax-mof.s3.amazonaws.com/';
 
 class SearchResults extends React.Component {
   render() {
@@ -8,7 +9,9 @@ class SearchResults extends React.Component {
       <ul>
         {this.props.hits.map(function(hit) { return (
           <li>
-            {hit._source.slug}
+            <a href={bucketUrl + hit._source.slug + '.pdf'}>
+              {hit._source.slug}
+            </a>
           </li>
         )})}
       </ul>
