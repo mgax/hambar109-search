@@ -25,6 +25,11 @@ class SearchResults extends React.Component {
             <a href={bucketUrl + hit._source.slug + '.pdf'}>
               {hit._source.slug}
             </a>
+            <ul>
+            {hit.highlight.text.map(function(hi) {
+              return <li dangerouslySetInnerHTML={{__html: hi}} />
+            })}
+            </ul>
           </li>
         )})}
       </ul>
