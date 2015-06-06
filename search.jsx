@@ -9,11 +9,17 @@ class SearchResults extends React.Component {
 class Search extends React.Component {
   render() {
     return (
-      <form>
-        <input type="search" name="q" />
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <input type="search" ref="q" />
         <button type="submit">search</button>
       </form>
     );
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    var q = React.findDOMNode(this.refs.q).value;
+    console.log(q);
   }
 }
 
