@@ -9,15 +9,15 @@ var search = function(q, callback) {
     method: 'POST',
     data: JSON.stringify({
       query: {term: {text: q}},
-      highlight: {fields: {text: {}}},
+      highlight: {fields: {text: {}}}
     }),
     dataType: 'json',
     success: callback
   });
 };
 
-class SearchResults extends React.Component {
-  render() {
+var SearchResults = React.createClass({
+  render: function() {
     return (
       <ul>
         {this.props.hits.map(function(hit) { return (
@@ -35,15 +35,14 @@ class SearchResults extends React.Component {
       </ul>
     );
   }
-}
+});
 
-class Search extends React.Component {
-  constructor() {
-    super();
-    this.state = {hits: [], searching: false};
-  }
+var Search = React.createClass({
+  getInitialState: function() {
+    return {hits: [], searching: false};
+  },
 
-  render() {
+  render: function() {
     var results = null;
     if(this.state.searching) {
       results = "searching ...";
@@ -53,7 +52,7 @@ class Search extends React.Component {
     }
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)} className="form-inline">
+        <form onSubmit={this.handleSubmit} className="form-inline">
           <div className="form-group">
             <input type="search" className="form-control" ref="q" />
           </div>
@@ -62,9 +61,9 @@ class Search extends React.Component {
         {results}
       </div>
     );
-  }
+  },
 
-  handleSubmit(evt) {
+  handleSubmit: function(evt) {
     evt.preventDefault();
     var q = React.findDOMNode(this.refs.q).value;
     this.setState({searching: true});
@@ -72,6 +71,6 @@ class Search extends React.Component {
       this.setState({hits: resp.hits.hits, searching: false});
     }.bind(this));
   }
-}
+});
 
 React.render(<Search />, document.querySelector('#search'));
