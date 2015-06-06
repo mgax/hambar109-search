@@ -3,6 +3,19 @@
 var searchUrl = 'http://hambarsearch.laforge.grep.ro/query';
 var bucketUrl = 'https://mgax-mof.s3.amazonaws.com/';
 
+var search = function(q, callback) {
+  $.ajax({
+    url: searchUrl,
+    method: 'POST',
+    data: JSON.stringify({
+      query: {term: {text: q}},
+      highlight: {fields: {text: {}}},
+    }),
+    dataType: 'json',
+    success: callback
+  });
+};
+
 class SearchResults extends React.Component {
   render() {
     return (
@@ -48,7 +61,7 @@ class Search extends React.Component {
     evt.preventDefault();
     var q = React.findDOMNode(this.refs.q).value;
     this.setState({searching: true});
-    $.getJSON(searchUrl, {q: q}, function(resp) {
+    search(q, function(resp) {
       this.setState({hits: resp.hits.hits, searching: false});
     }.bind(this));
   }
