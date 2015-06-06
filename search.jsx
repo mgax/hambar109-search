@@ -54,7 +54,12 @@ var Search = React.createClass({
       <div>
         <form onSubmit={this.handleSubmit} className="form-inline">
           <div className="form-group">
-            <input type="search" className="form-control" ref="q" />
+            <input
+              type="search"
+              className="form-control"
+              ref="q"
+              autoFocus={true}
+              />
           </div>
           <button type="submit" className="btn btn-default">search</button>
         </form>
