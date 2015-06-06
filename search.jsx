@@ -30,7 +30,10 @@ var search = function(q, callback) {
     url: searchUrl,
     method: 'POST',
     data: JSON.stringify({
-      query: {term: {text: q}},
+      query: {query_string: {
+        default_field: 'text',
+        query: q
+      }},
       highlight: {fields: {text: {}}}
     }),
     dataType: 'json',
