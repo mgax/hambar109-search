@@ -17,9 +17,17 @@ class SearchResults extends React.Component {
 }
 
 class Search extends React.Component {
+  constructor() {
+    super();
+    this.state = {hits: [], searching: false};
+  }
+
   render() {
     var results = null;
-    if(this.state && this.state.hits) {
+    if(this.state.searching) {
+      results = "searching ...";
+    }
+    else {
       results = <SearchResults hits={this.state.hits} />;
     }
     return (
@@ -36,8 +44,9 @@ class Search extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     var q = React.findDOMNode(this.refs.q).value;
+    this.setState({searching: true});
     $.getJSON(searchUrl, {q: q}, function(resp) {
-      this.setState({hits: resp.hits.hits});
+      this.setState({hits: resp.hits.hits, searching: false});
     }.bind(this));
   }
 }
